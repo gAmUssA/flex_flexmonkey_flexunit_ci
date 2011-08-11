@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Build file for CalculatorApp project -->
+
 <project name="CalculatorApp-CI"
 		 default="build"
 		 basedir=".">
