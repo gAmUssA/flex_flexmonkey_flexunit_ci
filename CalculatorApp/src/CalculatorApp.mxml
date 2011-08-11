@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   creationComplete="application1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+
+			[Bindable]
+			public var result:Number;
+
+			protected function operation_clickHandler(event:MouseEvent):void
+			{
+				switch (event.target.id)
+				{
+					case "plusButton":
+					{
+						result=Number(leftOperand.text) + Number(rightOperand.text);
+						break;
+					}
+					case "minusButton":
+					{
+						result=Number(leftOperand.text) - Number(rightOperand.text);
+						break;
+					}
+					case "multButton":
+					{
+						result=Number(leftOperand.text) * Number(rightOperand.text);
+						break;
+					}
+					case "divButton":
+					{
+						result=Number(leftOperand.text) / Number(rightOperand.text);
+						break;
+					}
+					case "clearButton":
+					{
+						leftOperand.text = "0";
+						rightOperand.text = "0";
+						result = 0;
+						break;
+					}
+
+					default:
+					{
+						Alert.show("defauilt");
+						break;
+					}
+				}
+
+			}
+
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				result=0;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Panel skinClass="skins.MyPanelSkin" title="Super Calc">
+
+		<s:layout>
+			<s:VerticalLayout paddingTop="10"
+							  paddingBottom="10"
+							  paddingLeft="10"
+							  paddingRight="10"
+							  gap="15"/>
+		</s:layout>
+		<s:HGroup gap="20"
+				  horizontalAlign="left"
+				  verticalAlign="middle">
+			<s:Label id="leftOperandLabel"
+					 text="Left Operand"/>
+			<s:TextInput id="leftOperand"
+						 prompt="Enter left operand"
+						 restrict="0-9 \."/>
+		</s:HGroup>
+		<s:HGroup gap="20"
+				  horizontalAlign="left"
+				  verticalAlign="middle">
+			<s:Label id="rightOperandLabel"
+					 text="Right Operand"/>
+			<s:TextInput id="rightOperand"
+						 prompt="Enter right operand"
+						 restrict="0-9 \."/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Button id="plusButton"
+					  label="+"
+					  click="operation_clickHandler(event)"/>
+			<s:Button id="minusButton"
+					  label="-"
+					  click="operation_clickHandler(event)"/>
+			<s:Button id="multButton"
+					  label="*"
+					  click="operation_clickHandler(event)"/>
+			<s:Button id="divButton"
+					  label="/"
+					  click="operation_clickHandler(event)"/>
+			<s:Button id="clearButton"
+					  label="C"
+					  click="operation_clickHandler(event)"/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Label text="Result: "/>
+			<s:Label id="resultLabel"
+					 text="{result}" fontSize="30" fontStyle="italic" fontWeight="bold" color="green"/>
+		</s:HGroup>
+	</s:Panel>
+</s:Application>
