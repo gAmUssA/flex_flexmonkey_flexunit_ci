@@ -1,0 +1,32 @@
+<FlexMonkey>
+  <TestSuite name="New Test Suite" description="" ignore="false">
+    <TestCase name="New Test Case" description="" ignore="false">
+      <Test name="Setup" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Click" value="C" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+      </Test>
+      <Test name="Validate controls" description="" defaultThinkTime="250" ignore="false">
+        <Verify value="+" prop="automationName" description="verify plus button" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="verify-3-6790.snp" verifyBitmapFuzziness="0">
+          <Attribute name="label" expectedValue="+" type="property" actualValue="+"/>
+        </Verify>
+        <Verify value="-" prop="automationName" description="Verify minus button" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="verify-4-2662.snp" verifyBitmapFuzziness="0">
+          <Attribute name="label" expectedValue="-" type="property" actualValue="-"/>
+        </Verify>
+      </Test>
+      <Test name="Validate operations" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Input" value="leftOperand" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="2"/>
+        </UIEvent>
+        <UIEvent command="Input" value="rightOperand" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="2"/>
+        </UIEvent>
+        <UIEvent command="Click" value="+" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <Verify value="resultLabel" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="verify-8-3166.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="4" type="property" actualValue="4"/>
+        </Verify>
+      </Test>
+      <Test name="Tear down" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Click" value="C" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+      </Test>
+    </TestCase>
+  </TestSuite>
+</FlexMonkey>

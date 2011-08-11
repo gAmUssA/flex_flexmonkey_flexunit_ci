@@ -1,0 +1,3 @@
+<project useMultipleSuiteFiles="true" codeGenTimeoutPadding="2000">
+  <generatedCode url="tests/src" suitesPackageName="com.farata.symposium.tests" testCaseBaseClass=""/>
+</project>
