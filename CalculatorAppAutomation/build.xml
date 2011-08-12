@@ -4,7 +4,6 @@
 <project name="CalculatorApp-CI"
 		 default="build"
 		 basedir=".">
-
 	<property name="DEBUG"
 			  value="true"/>
 	<property file="build.properties"/>

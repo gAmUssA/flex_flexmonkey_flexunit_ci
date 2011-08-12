@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build file for CalculatorApp project -->
+
+<project name="CalculatorApp"
+		 default="build-release"
+		 basedir=".">
+	
+	<property name="DEBUG"
+			  value="false"/>
+	<property file="build.properties"/>
+
+	<fail unless="flex.home"
+		  message="flex.home should be set (in build.properties file)"/>
+	<property name="FLEX_HOME"
+			  value="${flex.home}"/>
+	<property name="MXMLC.JAR"
+			  value="${FLEX_HOME}/lib/mxmlc.jar"/>
+	<property name="AUTO_LIB_ROOT"
+			  value="${FLEX_HOME}/frameworks/libs/automation"/>
+
+	<property name="APP_NAME"
+			  value="CalculatorApp"/>
+
+	<property name="PROJECT_ROOT"
+			  value="${basedir}"/>
+
+	<property name="SOURCE_ROOT"
+			  value="${PROJECT_ROOT}/src"/>
+	
+	<property name="OUTPUT_ROOT"
+			  value="${PROJECT_ROOT}/bin-release"/>
+	<property name="REPORT_ROOT"
+			  value="${PROJECT_ROOT}/report"/>
+	<property name="LIB_ROOT"
+			  value="${PROJECT_ROOT}/libs"/>	
+	<!-- Location of the Monkey ant tasks -->
+	<path id="libraries">
+		<fileset dir="${basedir}/jars">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- FlexUnit ant task -->
+	<taskdef resource="flexUnitTasks.tasks"
+			 classpathref="libraries"/>
+
+	<target name="build-release">
+		<antcall target="clean"/>
+		<antcall target="init"/>
+		<antcall target="setup"/>
+		<antcall target="compile"/>
+		<!-- antcall target="wrapper" /-->
+	</target>
+
+	<target name="clean">
+		<delete dir="${OUTPUT_ROOT}"/>
+		<delete dir="${REPORT_ROOT}"/>
+	</target>
+
+	<target name="init">
+		<mkdir dir="${OUTPUT_ROOT}"/>
+	</target>
+
+	<target name="setup">
+		
+	</target>
+
+	<!-- compile the application and tests -->
+	<target name="compile">
+		<java jar="${MXMLC.JAR}"
+			  fork="true"
+			  failonerror="true">
+			<jvmarg value="-Xmx512m"/>
+			<!-- avoid running out of heap space during compile -->
+			<arg value="-debug=false"/>
+			<arg value="-optimize=true"/>
+
+			<arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+
+			<arg value="-source-path"/>
+			<arg value="${SOURCE_ROOT}"/>
+
+			<arg value="-file-specs=${SOURCE_ROOT}/${APP_NAME}.mxml"/>
+
+			<arg value="-output=${OUTPUT_ROOT}/${APP_NAME}.swf"/>
+		</java>
+	</target>
+
+	<target name="wrapper">
+		
+	</target>
+	
+	<macrodef name="generateHtmlWrapper" description="Generates HTML Wrapper using custom template">
+		<attribute name="file" />
+		<attribute name="title" />
+		<attribute name="application" />
+		<attribute name="swf" />
+		<attribute name="width" />
+		<attribute name="height" />
+		<attribute name="bgcolor" />
+		<attribute name="version-major" />
+		<attribute name="version-minor" />
+		<attribute name="version-revision" />
+		<attribute name="template" />
+		<attribute name="output" />
+
+		<sequential>
+			<copy todir="@{output}/history">
+				<fileset dir="html-template/history" />
+			</copy>
+			<copy file="html-template/AC_OETags.js" todir="@{output}" />
+			<copy file="html-template/playerProductInstall.swf" todir="@{output}" />
+			<copy file="html-template/index.template.html" tofile="@{output}/@{file}" />
+
+			<replace file="@{output}/@{file}" token="$${title}" value="@{title}" />
+			<replace file="@{output}/@{file}" token="$${swf}" value="@{swf}" />
+			<replace file="@{output}/@{file}" token="$${width}" value="@{width}" />
+			<replace file="@{output}/@{file}" token="$${height}" value="@{height}" />
+			<replace file="@{output}/@{file}" token="$${bgcolor}" value="@{bgcolor}" />
+			<replace file="@{output}/@{file}" token="$${application}" value="@{application}" />
+			<replace file="@{output}/@{file}" token="$${version_major}" value="@{version-major}" />
+			<replace file="@{output}/@{file}" token="$${version_minor}" value="@{version-minor}" />
+			<replace file="@{output}/@{file}" token="$${version_revision}" value="@{version-revision}" />
+		</sequential>
+	</macrodef>
+
+</project>
