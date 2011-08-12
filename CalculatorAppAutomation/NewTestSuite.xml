@@ -28,5 +28,25 @@
         <UIEvent command="Click" value="C" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
       </Test>
     </TestCase>
+    <TestCase name="multiply testing" description="null" ignore="false">
+      <Test name="Setup" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Click" value="C" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+      </Test>
+      <Test name="test times" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Input" value="leftOperand" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="324"/>
+        </UIEvent>
+        <UIEvent command="Input" value="rightOperand" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="2"/>
+        </UIEvent>
+        <UIEvent command="Click" value="*" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <Verify value="resultLabel" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="2" verifyBitmap="false" snapshotURL="verify-13-9968.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="648" type="property" actualValue="648"/>
+        </Verify>
+      </Test>
+      <Test name="Tear down" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Click" value="C" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+      </Test>
+    </TestCase>
   </TestSuite>
 </FlexMonkey>
